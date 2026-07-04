@@ -225,9 +225,26 @@
     </div>
 
     <div class="panel" style="margin-top:20px;">
+      <h3>Evidencia real — Minitab (Asistente &gt; Gráficas de control)</h3>
+      <div class="grid2">
+        <div>
+          <img src="img/p3-minitab-resumen.png" alt="Gráfica Xbarra-R de X1;...;X4, informe de resumen de Minitab" style="width:100%;border-radius:6px;border:1px solid var(--border);">
+          <p class="chart-caption">X̿=22.457 · LCS=22.680 · LCI=22.233 · R̄=0.3067 — 66.7% de subgrupos fuera de control</p>
+        </div>
+        <div>
+          <img src="img/p3-minitab-estabilidad.png" alt="Informe de estabilidad de Minitab señalando subgrupos fuera de control" style="width:100%;border-radius:6px;border:1px solid var(--border);">
+          <p class="chart-caption">Prueba 1 (fuera de límites) falla en los subgrupos 1–5, 10, 12–15</p>
+        </div>
+      </div>
+      <div class="callout" style="margin-top:14px;">
+        <p>Minitab confirma exactamente los valores calculados en Excel (X̿=22.457, UCL=22.680, LCL=22.233) y además detecta <b>10 de 15 subgrupos (66.7%) fuera de control</b> en la carta X̄ — más contundente que una simple lectura visual de tendencia. También marca una advertencia de <b>datos correlacionados (r=0.8)</b> entre observaciones consecutivas dentro de cada subgrupo: es evidencia estadística adicional de que existe una causa especial de deriva sostenida, no ruido aleatorio común.</p>
+      </div>
+    </div>
+
+    <div class="panel" style="margin-top:20px;">
       <h3>3. Interpretación de negocio</h3>
       <span class="badge badge-alert">Fuera de control — tendencia sostenida</span>
-      <p style="margin-top:10px;">La carta muestra una <b>tendencia monotónica de 15 subgrupos consecutivos al alza</b> (de 21.95 °C a 23.15 °C), con varios puntos fuera de UCL/LCL en ambos extremos respecto a la media global — un patrón clásico de deriva, no de ruido aleatorio. En el contexto de un data center, esto es consistente con <b>degradación progresiva del sistema de enfriamiento</b> (filtros obstruidos, pérdida de eficiencia del compresor) o con un <b>aumento de carga computacional</b> que el sistema de climatización ya no compensa. El riesgo operativo de no corregir esto es que el pasillo frío rebase umbrales térmicos de los racks, acelerando fallas de hardware (lo cual conecta directamente con el Problema 1) y arriesgando SLAs de disponibilidad.</p>
+      <p style="margin-top:10px;">La carta muestra una <b>tendencia monotónica de 15 subgrupos consecutivos al alza</b> (de 21.95 °C a 23.15 °C), con 10 de 15 subgrupos fuera de UCL/LCL confirmados por Minitab — un patrón clásico de deriva, no de ruido aleatorio. En el contexto de un data center, esto es consistente con <b>degradación progresiva del sistema de enfriamiento</b> (filtros obstruidos, pérdida de eficiencia del compresor) o con un <b>aumento de carga computacional</b> que el sistema de climatización ya no compensa. El riesgo operativo de no corregir esto es que el pasillo frío rebase umbrales térmicos de los racks, acelerando fallas de hardware (lo cual conecta directamente con el Problema 1) y arriesgando SLAs de disponibilidad.</p>
     </div>
   </div>
 </section>
