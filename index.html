@@ -142,16 +142,34 @@
         <p class="chart-caption">Cp=0.93 · Cpl=1.02 · Cpk=0.83 · Cpm=0.89 — Cpk por debajo de 1.0</p>
       </div>
       <div class="panel">
-        <h3>3. Minitab — configurar Target para Cpm</h3>
+        <h3>3. Minitab — ruta del Asistente</h3>
         <ol class="steps">
-          <li><code>Asistente &gt; Análisis de capacidad...</code></li>
-          <li>Elegir datos de resumen (media, desv. estándar, n) o la columna de 180 mediciones</li>
-          <li>En el cuadro de diálogo, llenar el campo <b>Target = 100</b> además de LSL=50 y USL=150</li>
-          <li>Al fijar el Target, el reporte incluye automáticamente <b>Cpm</b> junto a Cp/Cpk</li>
+          <li>El Asistente exige una columna de datos reales (no acepta media/desv. estándar directas): se generaron 180 valores sintéticos con media=105.00 y desv. estándar=18.000 exactas para reproducir el resumen del enunciado</li>
+          <li><code>Asistente &gt; Análisis de capacidad...</code> → <b>Continuos</b> → Análisis de capacidad</li>
+          <li>Columna de datos, <b>tamaño de subgrupo constante = 1</b> (no hay estructura de subgrupos, solo el resumen)</li>
+          <li>Espec. inferior=50, Espec. superior=150, <b>Objetivo=100</b></li>
         </ol>
-        <div class="callout" style="margin-top:14px;">
-          <p><b>Interpretación:</b> Cpk=0.833 &lt; 1.0 → el proceso <b>no es capaz</b>: aunque Cpl=1.02 sugiere margen hacia el LSL, el Cpu=0.833 muestra que el proceso está desplazado hacia el USL, comiéndose el margen contra el límite superior. Cpm=0.892 confirma que, además de no ser capaz, el proceso está descentrado respecto al target de 100 ms — "cumple" el SLA solo por poco y con riesgo real de exceder 150 ms bajo variabilidad normal. A la escala de Google (miles de millones de consultas diarias), un Cpk de 0.83 no es un margen cosmético: incluso una fracción pequeña de solicitudes fuera de spec se traduce en un volumen absoluto enorme de consultas lentas, algo que una empresa de bajo volumen con el mismo Cpk no sentiría de forma perceptible.</p>
+      </div>
+    </div>
+
+    <div class="panel" style="margin-top:20px;">
+      <h3>Evidencia real — Minitab (Asistente &gt; Análisis de capacidad)</h3>
+      <div class="grid2">
+        <div>
+          <img src="img/p2-minitab-resumen.png" alt="Análisis de capacidad para TiempoRespuesta, informe de resumen de Minitab" style="width:100%;border-radius:6px;border:1px solid var(--border);">
+          <p class="chart-caption">Nivel Z real=2.44 · Pp=0.93 · Ppk=0.83 · media difiere del objetivo (p&lt;0.001)</p>
         </div>
+        <div>
+          <img src="img/p2-minitab-desempeno.png" alt="Informe de desempeño del proceso de Minitab, Cp/Cpk/Pp/Ppk" style="width:100%;border-radius:6px;border:1px solid var(--border);">
+          <p class="chart-caption">Corto plazo: Cp=0.89, Cpk=0.80 (σ=18.736 vía rango móvil) · Largo plazo: Pp=0.93, Ppk=0.83 (σ=18.000 overall)</p>
+        </div>
+      </div>
+      <div class="callout" style="margin-top:14px;">
+        <p><b>Hallazgo clave (conecta con P4):</b> la fórmula manual del examen <code>Cp=(USL-LSL)/(6·s)</code> usa la <b>s</b> muestral dada como variación total del proceso — eso es exactamente lo que Minitab llama <b>Pp/Ppk (largo plazo, "overall")</b>, y por eso coinciden casi exacto (0.926≈0.93, 0.833≈0.83). El <b>Cp/Cpk de corto plazo</b> que reporta Minitab (0.89/0.80) usa en cambio un σ derivado del rango móvil entre observaciones consecutivas (18.736), ligeramente distinto. Es la misma distinción corto/largo plazo que pide el Problema 4.2.</p>
+        <p style="margin-top:8px;"><b>Limitación real del Asistente:</b> pese a configurar el Objetivo=100, el Asistente <b>no reporta Cpm</b> en ningún panel del informe (solo Cp/Cpk/Pp/Ppk) — por eso el índice de Taguchi se calculó y sustenta únicamente con la fórmula manual en Excel (Cpm=0.892).</p>
+      </div>
+      <div class="callout" style="margin-top:14px;">
+        <p><b>Interpretación de negocio:</b> Cpk≈0.83 &lt; 1.0 → el proceso <b>no es capaz</b>: el Cpu(0.833) muestra que el proceso está desplazado hacia el USL, comiéndose el margen contra el límite superior más que hacia el LSL (Cpl=1.02). Cpm=0.892 confirma que, además de no ser capaz, el proceso está descentrado respecto al target de 100 ms — "cumple" el SLA solo por poco y con riesgo real de exceder 150 ms bajo variabilidad normal (el propio Minitab confirma con p&lt;0.001 que la media difiere significativamente del objetivo). A la escala de Google (miles de millones de consultas diarias), un Cpk de 0.83 no es un margen cosmético: incluso una fracción pequeña de solicitudes fuera de spec se traduce en un volumen absoluto enorme de consultas lentas, algo que una empresa de bajo volumen con el mismo Cpk no sentiría de forma perceptible.</p>
       </div>
     </div>
   </div>
