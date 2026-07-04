@@ -64,7 +64,24 @@
     </div>
 
     <div class="panel" style="margin-top:20px;">
-      <h3>Carta np — Discos fallidos por rack</h3>
+      <h3>Evidencia real — Minitab (Asistente &gt; Gráficas de control)</h3>
+      <div class="grid2">
+        <div>
+          <img src="img/p1-minitab-graficaP.png" alt="Gráfica P de Fallidos en Minitab, informe de resumen" style="width:100%;border-radius:6px;border:1px solid var(--border);">
+          <p class="chart-caption">P̄=0.01792 · LCS=0.04360 · LCI=0 — 0% de subgrupos fuera de control</p>
+        </div>
+        <div>
+          <img src="img/p1-minitab-laney.png" alt="Diagnóstico de dispersión y comparación con Gráfica P' de Laney" style="width:100%;border-radius:6px;border:1px solid var(--border);">
+          <p class="chart-caption">Minitab detecta dispersión insuficiente (72.09% de la variación esperada) — el proceso es más estable de lo típico</p>
+        </div>
+      </div>
+      <div class="callout" style="margin-top:14px;">
+        <p>Los valores de Minitab (P̄=0.01792, LCS=0.04360, LCI=0) coinciden exactamente con np̄/n=4.30/240 y UCL/n=10.46/240 calculados en Excel. Minitab además señala <b>dispersión insuficiente</b>: la variación real entre racks es menor a la esperada por un modelo binomial puro, lo que confirma que el proceso de manufactura/instalación de discos es aún más estable de lo que sugiere la carta np estándar — se descartó la Gráfica P' de Laney porque el examen pide la carta np clásica, no un ajuste de dispersión.</p>
+      </div>
+    </div>
+
+    <div class="panel" style="margin-top:20px;">
+      <h3>Carta np — Discos fallidos por rack (versión Excel)</h3>
       <svg viewBox="0 0 760 260" style="width:100%;height:auto;">
         <line x1="40" y1="30.2" x2="740" y2="30.2" stroke="#FF6B4A" stroke-dasharray="4 3" stroke-width="1"/>
         <text x="745" y="34" font-size="11" fill="#FF6B4A" font-family="IBM Plex Mono">UCL 10.46</text>
