@@ -1,10 +1,33 @@
 import openpyxl
 from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
 from openpyxl.chart import LineChart, BarChart, Reference
+from openpyxl.chart.marker import Marker
+from openpyxl.drawing.line import LineProperties
+from openpyxl.chart.shapes import GraphicalProperties
 from openpyxl.utils import get_column_letter
 
 def no_smooth(chart):
     for s in chart.series:
+        s.smooth = False
+
+def style_control_chart_series(chart, data_color="2E5FA3", limit_colors=("C00000", "1F7A4C", "C00000")):
+    """series[0]=dato real (con marcador), series[1..3]=UCL/CL/LCL (rectas, sin marcador)."""
+    series = chart.series
+    if not series:
+        return
+    data_s = series[0]
+    data_s.marker = Marker(symbol="circle", size=6)
+    data_s.marker.graphicalProperties = GraphicalProperties(solidFill=data_color)
+    data_s.graphicalProperties = GraphicalProperties(ln=LineProperties(solidFill=data_color, w=19050))
+    data_s.smooth = False
+
+    dash_for = {1: "dash", 2: "solid", 3: "dash"}
+    for i, s in enumerate(series[1:], start=1):
+        color = limit_colors[min(i - 1, len(limit_colors) - 1)]
+        lp = LineProperties(solidFill=color, w=15875)
+        lp.prstDash = dash_for.get(i, "dash")
+        s.graphicalProperties = GraphicalProperties(ln=lp)
+        s.marker = Marker(symbol="none")
         s.smooth = False
 
 wb = openpyxl.Workbook()
@@ -96,7 +119,8 @@ chart.add_data(data, titles_from_data=True)
 chart.set_categories(cats)
 chart.height = 9
 chart.width = 20
-no_smooth(chart)
+chart.y_axis.majorGridlines = None
+style_control_chart_series(chart, data_color="2E5FA3", limit_colors=("C00000", "1F7A4C", "C00000"))
 ws.add_chart(chart, "D13")
 
 for col, w in zip("ABCDEFGHIJKL", [8,16,8,32,32,10,4,8,10,10,10,10]):
@@ -196,6 +220,11 @@ bar.add_data(data2, titles_from_data=True)
 bar.set_categories(cats2)
 bar.height = 8
 bar.width = 16
+bar.varyColors = True
+bar.dLbls = openpyxl.chart.label.DataLabelList()
+bar.dLbls.showVal = True
+bar.y_axis.majorGridlines = None
+bar.legend = None
 ws.add_chart(bar, "E12")
 
 # =========================================================
@@ -293,7 +322,8 @@ chart3.add_data(data3, titles_from_data=True)
 chart3.set_categories(cats3)
 chart3.height = 9
 chart3.width = 20
-no_smooth(chart3)
+chart3.y_axis.majorGridlines = None
+style_control_chart_series(chart3, data_color="2E5FA3", limit_colors=("C00000", "1F7A4C", "C00000"))
 ws.add_chart(chart3, "I17")
 
 for col, w in zip("ABCDEFGHIJKLMNOP", [10,7,7,7,7,9,7,3,26,10,2,10,8,8,8,8]):
