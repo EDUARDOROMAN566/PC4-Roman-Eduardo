@@ -11,16 +11,29 @@ Entrega de la Práctica Calificada N°4, TE603, FIIS-UNI.
 | P3 | Temperatura pasillo frío (n=4) | X̄-R | Fuera de control — tendencia sostenida al alza (21.95°C → 23.15°C) |
 | P4 | Análisis conceptual | Cpk vs. control / Cp-Cpk vs. Pp-Ppk / c vs. I-MR | Conceptual, sin datos a graficar |
 
-## Estructura
+## Estructura (según guía oficial del curso)
 
-- `index.html` — sitio de entrega completo (abrir con `template/css/estilos.css` en la misma carpeta relativa)
+```
+PC4_Roman_Eduardo.zip
+├── index.html
+├── css/estilos.css
+├── img/
+├── excel/solucion.xlsx
+├── minitab/proyecto.mpx     ← pendiente, generar en Minitab real
+├── prompts/prompts.md
+├── declaracionIA.md
+└── README.md
+```
+
+- `index.html` — sitio de entrega completo (Portada, P1–P4, Conclusiones, Bibliografía e IA)
 - `excel/solucion.xlsx` — 4 hojas con fórmulas de Excel reales, recalculado con LibreOffice sin errores
-- `prompts/prompts.md` — registro de prompts usados
-- `declaracionIA.md` — declaración de uso de IA (plantilla)
+- `prompts/prompts.md` — registro de prompts (Objetivo / Respuesta IA / Qué modifiqué / Reflexión personal)
+- `declaracionIA.md` — declaración de herramientas usadas y % de apoyo de IA
 
 ## Pendiente antes de la entrega final
 
-- [ ] Ejecutar las cartas y el análisis de capacidad en **Minitab real** y adjuntar capturas (rutas de menú ya documentadas en `index.html`)
+- [ ] Ejecutar las cartas y el análisis de capacidad en **Minitab real** y guardar `minitab/proyecto.mpx` (ver `minitab/LEEME.md`)
 - [ ] Completar la sección "reflexión personal" en `prompts/prompts.md`
 - [ ] Completar el porcentaje de apoyo de IA en `declaracionIA.md`
-- [ ] Habilitar GitHub Pages manualmente si la API no lo activó automáticamente (Settings → Pages → Source: main /(root))
+- [ ] El profesor pide el **ZIP** como medio oficial de evaluación (`PC4_Roman_Eduardo.zip`) — GitHub Pages es un extra, no reemplaza el ZIP
+- [ ] Verificar que `index.html` abre bien localmente con rutas relativas antes de comprimir
