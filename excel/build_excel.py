@@ -1,7 +1,11 @@
 import openpyxl
 from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
-from openpyxl.chart import LineChart, Reference
+from openpyxl.chart import LineChart, BarChart, Reference
 from openpyxl.utils import get_column_letter
+
+def no_smooth(chart):
+    for s in chart.series:
+        s.smooth = False
 
 wb = openpyxl.Workbook()
 wb.remove(wb.active)
@@ -92,6 +96,7 @@ chart.add_data(data, titles_from_data=True)
 chart.set_categories(cats)
 chart.height = 9
 chart.width = 20
+no_smooth(chart)
 ws.add_chart(chart, "D13")
 
 for col, w in zip("ABCDEFGHIJKL", [8,16,8,32,32,10,4,8,10,10,10,10]):
@@ -181,8 +186,9 @@ ws["B21"] = f"=IF(C{cpk_row}<1,\"No capaz\",IF(C{cpk_row}<1.33,\"Capaz marginal\
 for col, w in zip("ABC", [22, 42, 14]):
     ws.column_dimensions[col].width = w
 
-# Gráfico simple de barras comparando índices
-bar = LineChart()
+# Gráfico de barras comparando índices (categóricos, no serie de tiempo)
+bar = BarChart()
+bar.type = "col"
 bar.title = "Índices de capacidad"
 cats2 = Reference(ws, min_col=1, min_row=start_row, max_row=cpk_row+1)
 data2 = Reference(ws, min_col=3, min_row=11, max_row=cpk_row+1)
@@ -287,6 +293,7 @@ chart3.add_data(data3, titles_from_data=True)
 chart3.set_categories(cats3)
 chart3.height = 9
 chart3.width = 20
+no_smooth(chart3)
 ws.add_chart(chart3, "I17")
 
 for col, w in zip("ABCDEFGHIJKLMNOP", [10,7,7,7,7,9,7,3,26,10,2,10,8,8,8,8]):
